@@ -1,13 +1,43 @@
-Creating a platform for an e-learning company
-The company wants to take advantage of a Government programme to retrain graduates into IT. 
+# E-Learning Platform Infrastructure
 
-Currently, they don’t have a robust platform that can take care of their students' needs. They want to build a more robust platform that can orchestrate their docker applications and also that can scale. 
+## Overview
 
-We're using Terraform to build this environment. They have containerised all their applications and all their images are stored in ECR. 
+An e-learning company is looking to take advantage of a Government programme that retrains graduates into IT. Their current platform can't reliably meet student needs, so they need a more robust, scalable solution for orchestrating their containerised applications.
 
-We're building a code for DEV environment, TEST environment, STAGING environment and PROD Environment.
+This repository contains the infrastructure-as-code to build that platform on AWS.
 
-The Application the ECS will orchestrate is Nginx server.
+## Goals
 
-We are using Jenkins to build the pipeline/Jenkinsfile to deploy the code to the AWS platform.  
+- Replace the existing platform with one that is robust and able to scale with student demand
+- Orchestrate Docker containers using Amazon ECS
+- Provision all infrastructure consistently and repeatably using Terraform
 
+## Architecture
+
+- **Container orchestration:** Amazon ECS
+- **Container images:** All applications are already containerised, with images stored in Amazon ECR
+- **Application:** An Nginx server, deployed and managed by ECS
+- **Infrastructure as code:** Terraform
+- **CI/CD:** Jenkins, using a Jenkinsfile to deploy the code to AWS
+
+## Environments
+
+The Terraform code supports four separate environments:
+
+| Environment | Purpose |
+|-------------|---------|
+| DEV         | Development and experimentation |
+| TEST        | Automated and QA testing |
+| STAGING     | Pre-production validation |
+| PROD        | Live, student-facing platform |
+
+## Deployment
+
+Deployments are handled by a Jenkins pipeline defined in the `Jenkinsfile`. The pipeline runs the Terraform code to build and update the infrastructure in the target AWS environment.
+
+## Prerequisites
+
+- An AWS account with appropriate permissions
+- Terraform installed
+- Access to the Jenkins server
+- Container images available in ECR
